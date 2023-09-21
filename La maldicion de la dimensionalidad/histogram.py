@@ -1,12 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import normaltest
 
-filename = "points_dimension_10.txt"  # Cambia el nombre del archivo según la dimensión deseada
+filename = "points_dimension_50.txt"  
 
-# Leer los números aleatorios del archivo de texto
 points = np.loadtxt(filename)
 
-# Calcular la distancia euclidiana entre todos los pares de puntos
 distances = []
 numPoints = len(points)
 for i in range(numPoints):
@@ -14,9 +13,22 @@ for i in range(numPoints):
         distance = np.linalg.norm(points[i] - points[j])
         distances.append(distance)
 
-# Generar un histograma de las distancias obtenidas
 plt.hist(distances, bins=10)
 plt.xlabel('Distancia')
 plt.ylabel('Frecuencia')
 plt.title('Histograma de Distancias')
 plt.show()
+mean = np.mean(distances)
+median = np.median(distances)
+std_dev = np.std(distances)
+
+print("Media:", mean)
+print("Mediana:", median)
+print("Desviación estándar:", std_dev)
+
+_, p_value = normaltest(distances)
+
+if p_value < 0.05:
+    print("Los datos no siguen una distribución normal.")
+else:
+    print("Los datos siguen una distribución normal.")
