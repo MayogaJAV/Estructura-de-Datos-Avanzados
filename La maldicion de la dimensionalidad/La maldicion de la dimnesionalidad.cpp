@@ -14,7 +14,6 @@ int main() {
 		
 		std::vector<std::vector<double>> points;
 		
-		// Generar los puntos aleatorios en la dimensión d
 		for (int i = 0; i < numPoints; ++i) {
 			std::vector<double> point;
 			for (int j = 0; j < d; ++j) {
@@ -24,9 +23,8 @@ int main() {
 			points.push_back(point);
 		}
 		
-		// Guardar los puntos en un archivo de texto
 		std::string filename = "points_dimension_" + std::to_string(d) + ".txt";
-		std::ofstream outputFile(filename, std::ios::trunc);  // Modo de apertura truncado
+		std::ofstream outputFile(filename, std::ios::trunc);  
 		if (outputFile.is_open()) {
 			for (const auto& point : points) {
 				for (const double value : point) {
